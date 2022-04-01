@@ -20,29 +20,29 @@ export const App = () => {
 
   // input field state
   const [Name, setName]=useState('');
+  const [ID, setId]=useState('');
 
   // form submit event
   const handleAddtodoSubmit=(e)=>{
     e.preventDefault();
 
-    //creating ID 
-    const date=new Date();
-    const time=date.getTime();
+
 
 
     // creating an object
     let todo={
-      ID:time,
+    
       Name,
+      ID
     
     }
     settodos([...todos,todo]);
     setName('');
+    setId('');
 
   }
 
-  //id state
-  const [id, setId]=useState();
+ 
 
   const [editForm,seteditform]=useState(false);
 
@@ -56,26 +56,37 @@ export const App = () => {
   }
 
 
+
+
+
   //updating a task 
-  const updatetodo=(todo,index)=>{
+  const updatetodo=(todo,id)=>{
    
 seteditform(true);
 
 setName(todo.Name);
-setId(index);
+setId(todo.ID);
+setId(id);
+
       
-   
   }
 
 
   const handleEditSubmit=(e)=>{
     e.preventDefault();
  
-    let items = [...todos];
-    
-    let item = items[id];
-   
-     console.log(item);
+let items=[...todos];
+let item=items[ID-1];
+
+item.Name=Name;
+items[ID-1]=item;
+settodos(items);
+
+
+
+    seteditform(false);
+    setName('');
+    setId('');
   }
 
 
@@ -103,6 +114,11 @@ setId(index);
             onChange={(e)=>setName(e.target.value)} value={Name}></input>
             <br></br>
 
+            <label>ID#</label>
+            <input type="text" className='form-control' required
+            onChange={(e)=>setId(e.target.value)} value={ID}></input>
+            <br></br>
+
             
             <button type="submit" className='btn btn-success btn-md'>
               ADD TODO to the list
@@ -124,6 +140,11 @@ setId(index);
     onChange={(e)=>setName(e.target.value)} value={Name}></input>
     <br></br>
 
+
+    {/* <label>ID#</label>
+            <input type="text" className='form-control' required
+            onChange={(e)=>setId(e.target.value)} value={ID}></input>
+            <br></br> */}
     
     <button type="submit" className='btn btn-success btn-md'>
       Update
@@ -143,6 +164,7 @@ setId(index);
                 <thead>
                   <tr>
                    
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Delete</th>
                     <th>Update</th>

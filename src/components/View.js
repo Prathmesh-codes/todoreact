@@ -8,13 +8,14 @@ export const View = ({todos,deletetodo,updatetodo}) => {
     
     return todos.map(todo=>(
         
-        <tr key={todo.Name}>
+        <tr key={todo.ID}>
         
+            <td>{todo.ID}</td>
             <td>{todo.Name}</td>
             <td className='delete-btn' onClick={()=>deletetodo(todo.Name)}>
                 <Icon icon={trash}/>
             </td>      
-            <td className='update-btn' onClick={()=>updatetodo(todo)}>
+            <td className='update-btn' onClick={()=>updatetodo(todo, todo.ID)}>
            <Icon icon={ic_cached}/>
             </td>                
         </tr>            
